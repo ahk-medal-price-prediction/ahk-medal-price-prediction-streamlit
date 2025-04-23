@@ -58,10 +58,10 @@ with front_personalisation_col:
         "Front Finish",(            
             'Select','Black Laser', 'Digital Printing', 'Enamel', 'Engraving', 
             'Laser Engraving', 'Offset Printing', 'Openwork', 'Smooth', 'Screen Printing', 
-            'Unglazed', 'Unenamel', 'UV Printing'))
+            'Unglazed', 'UV Printing'))
     
     if front_personalisation == "Select":
-        front_personalisation = "Blank"  
+        front_personalisation = "Unenamel"  
     else:
         front_personalisation = front_personalisation
 
@@ -70,10 +70,10 @@ with back_personalisation_col:
         "Back Finish",(
             'Select', '3M Adhesive', 'Black Laser', 'Enamel', 'Engraving','Epoxy', 
             'Grained', 'Laser Engraving', 'Molded Base', 'Non-Slip Felt', 'Offset Printing',
-            'Openwork',  'Smooth', 'Unenamel', 'Unglazed', 'UV Printing', 'Wooden plaque'))
+            'Openwork',  'Smooth', 'Unglazed', 'UV Printing', 'Wooden plaque'))
     
     if back_personalisation == "Select":
-        back_personalisation = "Blank"  
+        back_personalisation = "Unenamel"  
     else:
         back_personalisation = back_personalisation
 
@@ -109,7 +109,7 @@ finish_col, second_finish_col, double_finish_col = st.columns(3)
 # Finish selection
 with finish_col:
     finish = st.selectbox("Medal Finish", (
-        'Aluminum', 'Antique Bronze', 'Antique Copper', 'Antique Gold', 
+        'Select','Aluminum', 'Antique Bronze', 'Antique Copper', 'Antique Gold', 
         'Antique Nickel', 'Antique Pewter', 'Antique Silver', 'Antique Tin', 'Black Nickel', 'Brass', 
         'Copper', 'Gun Metal', 'Iron', 'Matt Nickel', 'Matte Black', 'Patinated Bronze', 
         'Patinated Pewter', 'Patinated Silver', 'Patinated Tin', 'Real Gold', 
@@ -117,6 +117,9 @@ with finish_col:
         'Shiny Metal','Shiny Nickel', 'Shiny Silver'
 
     ))
+
+    if finish == "Select":
+        finish = "'Shiny Nickel'" 
 
 # Define allowed finishes for Double Finish
 allowed_double_finish = ['Antique Gold', 'Satin Gold', 'Satin Metal', 'Shiny Gold']
@@ -145,9 +148,9 @@ with double_finish_col:
 # Second Finish logic
 with second_finish_col:
     second_finish_options = (
-        'Shiny Nickel', 'Select', 'Antique Bronze', 'Antique Gold', 
+        'Select', 'Antique Bronze', 'Antique Gold', 
         'Antique Pewter', 'Antique Silver', 'Antique Tin', 'Patinated Pewter', 
-        'Satin Gold', 'Satin Metal', 'Satin Nickel', 'Shiny Gold', 'Shiny Metal'
+        'Satin Gold', 'Satin Metal', 'Satin Nickel', 'Shiny Gold', 'Shiny Metal','Shiny Nickel'
 
     )
 
