@@ -30,10 +30,12 @@ medal_width_col, medal_height_col, medal_thickness_col = st.columns(3)
 with medal_width_col:
     medal_width = st.slider(
         "Medal Width (mm)", min_value=50, max_value=120, value=50, step=5)
+        # "Medal Width (mm)", min_value=50, max_value=120, value=50, step=1)
 
 with medal_height_col:
     medal_height = st.slider(
         "Medal Height (mm)", min_value=50, max_value=120, value=50, step=5)
+        # "Medal Height (mm)", min_value=50, max_value=120, value=50, step=1)
 
 with medal_thickness_col:
     medal_thickness = st.slider(
@@ -189,11 +191,13 @@ with st.expander("Ribbon Options", expanded= True):
         # Ribbon Width and Height (assuming mm)
         with ribbon_width_col:
             ribbon_width = st.slider(
-                "Ribbon Width (mm)", min_value=5, max_value=100, value=20, step=1)
+                # "Ribbon Width (mm)", min_value=5, max_value=100, value=20, step=1)
+                "Ribbon Width (mm)", min_value=5, max_value=100, value=20, step=5)
 
         with ribbon_height_col:
             ribbon_height = st.slider(
-                "Ribbon Height (mm)", min_value=5, max_value=150, value=50, step=1)
+                # "Ribbon Height (mm)", min_value=5, max_value=150, value=50, step=1)
+                "Ribbon Height (mm)", min_value=5, max_value=900, value=50, step=5)
             
 
         ribbon_no_of_colors_col, ribbon_print_col, no_of_ribbon_print_side_col = st.columns(3)
