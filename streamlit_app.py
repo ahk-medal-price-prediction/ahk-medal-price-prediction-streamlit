@@ -24,17 +24,29 @@ st.markdown(
 st.subheader('Please enter your inputs:')
 
 # Inputs
+# # Medal dimensions
+# medal_width_col, medal_height_col, medal_thickness_col = st.columns(3)
+
+# with medal_width_col:
+#     medal_width = st.slider(
+#         "Medal Width (mm)", min_value=50, max_value=120, value=50, step=5)
+#         # "Medal Width (mm)", min_value=50, max_value=120, value=50, step=1)
+
+# with medal_height_col:
+#     medal_height = st.slider(
+#         "Medal Height (mm)", min_value=50, max_value=120, value=50, step=5)
+#         # "Medal Height (mm)", min_value=50, max_value=120, value=50, step=1)
+
+# with medal_thickness_col:
+#     medal_thickness = st.slider(
+#         "Medal Thickness (mm)", min_value=2, max_value=10, value=2)
+
 # Medal dimensions
-medal_width_col, medal_height_col, medal_thickness_col = st.columns(3)
+medal_diameter_col, medal_thickness_col = st.columns(2)
 
-with medal_width_col:
-    medal_width = st.slider(
-        "Medal Width (mm)", min_value=50, max_value=120, value=50, step=5)
-        # "Medal Width (mm)", min_value=50, max_value=120, value=50, step=1)
-
-with medal_height_col:
-    medal_height = st.slider(
-        "Medal Height (mm)", min_value=50, max_value=120, value=50, step=5)
+with medal_diameter_col:
+    medal_diameter = st.slider(
+        "Medal Diameter (mm)", min_value=50, max_value=100, value=50, step=5)
         # "Medal Height (mm)", min_value=50, max_value=120, value=50, step=1)
 
 with medal_thickness_col:
@@ -259,8 +271,10 @@ user_inputs = {
     "back_type": back_type,
     "back_no_of_colors": back_no_of_colors,
     "back_personalisation": back_personalisation,
-    "medal_width": medal_width,
-    "medal_height": medal_height,
+    # "medal_width": medal_width,
+    # "medal_height": medal_height,
+    "medal_width": medal_diameter,
+    "medal_height": medal_diameter,
     "medal_thickness": medal_thickness,
     "finish": finish,
     "second_finish": second_finish,
