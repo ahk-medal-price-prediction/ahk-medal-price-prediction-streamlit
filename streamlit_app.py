@@ -24,30 +24,16 @@ st.markdown(
 st.subheader('Please enter your inputs:')
 
 # Inputs
-# # Medal dimensions
-# medal_width_col, medal_height_col, medal_thickness_col = st.columns(3)
-
-# with medal_width_col:
-#     medal_width = st.slider(
-#         "Medal Width (mm)", min_value=50, max_value=120, value=50, step=5)
-#         # "Medal Width (mm)", min_value=50, max_value=120, value=50, step=1)
-
-# with medal_height_col:
-#     medal_height = st.slider(
-#         "Medal Height (mm)", min_value=50, max_value=120, value=50, step=5)
-#         # "Medal Height (mm)", min_value=50, max_value=120, value=50, step=1)
-
-# with medal_thickness_col:
-#     medal_thickness = st.slider(
-#         "Medal Thickness (mm)", min_value=2, max_value=10, value=2)
-
 # Medal dimensions
-medal_diameter_col, medal_thickness_col = st.columns(2)
+medal_material_col,medal_diameter_col, medal_thickness_col = st.columns(3)
+
+with medal_material_col:
+    medal_material = st.selectbox(
+        "Medal Material",('Zamac', 'Iron', 'Aluminium', 'Brass'))
 
 with medal_diameter_col:
     medal_diameter = st.slider(
         "Medal Diameter (mm)", min_value=50, max_value=100, value=50, step=5)
-        # "Medal Height (mm)", min_value=50, max_value=120, value=50, step=1)
 
 with medal_thickness_col:
     medal_thickness = st.slider(
@@ -69,10 +55,14 @@ front_personalisation_col, back_personalisation_col = st.columns(2)
 
 with front_personalisation_col:
     front_personalisation = st.selectbox(
-        "Front Finish",(            
-            'Select','Black Laser', 'Digital Printing', 'Enamel', 'Engraving', 
-            'Laser Engraving', 'Offset Printing', 'Openwork', 'Smooth', 'Screen Printing', 
-            'Unglazed', 'UV Printing'))
+
+        # "Front Personalization",(            
+        # 'Select','Smooth', 'Engraving','Laser Engraving','Black Laser','Enamel', 
+        # 'UV Printing','Offset Printing'))
+
+        "Front Personalization",(            
+        'Select','Smooth', 'Engraving','Laser Engraving','Black Laser','Enamel', 
+        'UV Printing'))
     
     if front_personalisation == "Select":
         front_personalisation = "Unenamel"  
@@ -81,10 +71,15 @@ with front_personalisation_col:
 
 with back_personalisation_col:
     back_personalisation = st.selectbox(
-        "Back Finish",(
-            'Select', '3M Adhesive', 'Black Laser', 'Enamel', 'Engraving','Epoxy', 
-            'Grained', 'Laser Engraving', 'Molded Base', 'Non-Slip Felt', 'Offset Printing',
-            'Openwork',  'Smooth', 'Unglazed', 'UV Printing', 'Wooden plaque'))
+
+        # "Back Personalization",(
+        #     'Select','Smooth', 'Engraving', 'Laser Engraving', 
+        #     'Black Laser', 'Enamel', 'UV Printing', '3M Adhesive',
+        #     'Epoxy', 'Grained','Molded Base', 'Non-Slip Felt', 'Offset Printing', 'Wooden plaque'))
+
+        "Back Personalization",(
+        'Select','Smooth', 'Engraving','Laser Engraving','Black Laser','Enamel', 
+        'UV Printing'))
     
     if back_personalisation == "Select":
         back_personalisation = "Unenamel"  
@@ -122,62 +117,63 @@ finish_col, second_finish_col, double_finish_col = st.columns(3)
 
 # Finish selection
 with finish_col:
-    finish = st.selectbox("Medal Finish", (
-        'Select','Aluminum', 'Antique Bronze', 'Antique Copper', 'Antique Gold', 
-        'Antique Nickel', 'Antique Pewter', 'Antique Silver', 'Antique Tin', 'Black Nickel', 'Brass', 
-        'Copper', 'Gun Metal', 'Iron', 'Matt Nickel', 'Matte Black', 'Patinated Bronze', 
-        'Patinated Pewter', 'Patinated Silver', 'Patinated Tin', 'Real Gold', 
-        'Satin Gold', 'Satin Metal', 'Satin Nickel', 'Shiny Gold', 'Shiny Gun', 
-        'Shiny Metal','Shiny Nickel', 'Shiny Silver'
+   
 
+    finish = st.selectbox("Medal Plating", (
+        'Select', 'Shiny Nickel', 'Satin Nickel', 'Shiny Gold', 'Antique Tin', 'Antique Bronze',
+        'Antique Gold', 'Antique Silver'
     ))
 
     if finish == "Select":
         finish = "'Shiny Nickel'" 
 
 # Define allowed finishes for Double Finish
-allowed_double_finish = ['Antique Gold', 'Satin Gold', 'Satin Metal', 'Shiny Gold']
+# allowed_double_finish = ['Antique Gold', 'Satin Gold', 'Satin Metal', 'Shiny Gold']
 
 
 # Double Finish logic
 with double_finish_col:
-    if finish in allowed_double_finish:
+    # if finish in allowed_double_finish:
         double_finish = st.checkbox(
-            "Double Finish",
+            "Double Plating",
             value=False,
-            help="Double Finish is applicable to 'Antique Gold', 'Satin Gold', 'Satin Metal', 'Shiny Gold' only",
+            # help="Double Finish is applicable to 'Antique Gold', 'Satin Gold', 'Satin Metal', 'Shiny Gold' only",
             disabled=False
         )
         double_finish = 'Yes' if double_finish else 'No'
-    else:
-        double_finish = st.checkbox(
-            "Double Finish",
-            value=False,
-            help="Double Finish is only applicable to 'Antique Gold', 'Satin Gold', 'Satin Metal', 'Shiny Gold'.",
-            disabled=True
-        )
-        double_finish = 'No'
+    # else:
+    #     double_finish = st.checkbox(
+    #         "Double Finish",
+    #         value=False,
+    #         help="Double Finish is only applicable to 'Antique Gold', 'Satin Gold', 'Satin Metal', 'Shiny Gold'.",
+    #         disabled=True
+    #     )
+    #     double_finish = 'No'
 
 
 # Second Finish logic
 with second_finish_col:
     second_finish_options = (
-        'Select', 'Antique Bronze', 'Antique Gold', 
-        'Antique Pewter', 'Antique Silver', 'Antique Tin', 'Patinated Pewter', 
-        'Satin Gold', 'Satin Metal', 'Satin Nickel', 'Shiny Gold', 'Shiny Metal','Shiny Nickel'
+        # 'Select', 'Antique Bronze', 'Antique Gold', 
+        # 'Antique Pewter', 'Antique Silver', 'Antique Tin', 'Patinated Pewter', 
+        # 'Satin Gold', 'Satin Metal', 'Satin Nickel', 'Shiny Gold', 'Shiny Metal','Shiny Nickel'
+
+        'Select', 'Shiny Nickel', 'Satin Nickel', 'Shiny Gold', 'Antique Tin', 'Antique Bronze',
+        'Antique Gold', 'Antique Silver'
 
     )
 
     if double_finish == 'Yes':
         st.selectbox(
-            "Second Finish (auto-selected)",
+            # "Second Finish (auto-selected)",
+            "Second Medal Plating",
             second_finish_options,
             index=second_finish_options.index(finish) if finish in second_finish_options else 0,
-            disabled=True
+            disabled=False
         )
         second_finish = finish  # Assign same value as finish
     else:
-        second_finish = st.selectbox("Second Finish", second_finish_options)
+        second_finish = st.selectbox("Second Medal Plating", second_finish_options, disabled=True)
 
     if second_finish == "Select":
         second_finish = "No"  
@@ -276,9 +272,10 @@ user_inputs = {
     "medal_width": medal_diameter,
     "medal_height": medal_diameter,
     "medal_thickness": medal_thickness,
+    "medal_material": medal_material,
     "finish": finish,
     "second_finish": second_finish,
-    "double_finish": double_finish,
+    # "double_finish": double_finish,
     "ribbon_needed": ribbon_needed,
     "ribbon_no_of_colors": ribbon_no_of_colors,
     "ribbon_print": ribbon_print,
