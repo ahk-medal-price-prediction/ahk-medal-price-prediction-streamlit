@@ -249,13 +249,13 @@ with st.expander("Packaging & Quantity", expanded=True):
     with packaging_col:
         packaging = st.selectbox("Packaging",(
             
-            'Cellophane', 'Cellophane with AGEC Logo', 'BTC-313', 'BTL-102', 
+            'Cellophane with AGEC Logo', 'BTC-313', 'BTL-102', 
             'BTL-103', 'BTT-201', 'Cardboard Box',  'Velvet Pouch'
 )
         )
 
     with quantity_col:
-        quantity = st.number_input('Quantity', min_value=30, max_value=10000, value=1000, step=100,
+        quantity = st.number_input('Quantity', min_value=30, max_value=10000, value=100, step=100,
                                 help='Please enter values from 30 to 10,000')
 
 
