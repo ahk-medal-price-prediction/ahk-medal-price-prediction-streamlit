@@ -259,7 +259,7 @@ with st.expander("Packaging & Quantity", expanded=True):
         )
 
     with quantity_col:
-        quantity = st.number_input('Quantity', min_value=1, max_value=10000, value=100, step=100,
+        quantity = st.number_input('Quantity', min_value=30, max_value=10000, value=100, step=100,
                                 help='Please enter values from 30 to 10,000')
         
 show_mould_price = st.toggle("Show Mould Price?",value=True, help="Mould price is calculated using quantity = 1")
