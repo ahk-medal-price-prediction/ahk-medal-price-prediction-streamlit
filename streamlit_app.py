@@ -1,3 +1,7 @@
+# Added mould price
+# thus version has only cellopane with agec and default qunatity value is 100
+# and it is the next iteration of "with material"
+
 import streamlit as st
 import requests
 import json
@@ -255,8 +259,11 @@ with st.expander("Packaging & Quantity", expanded=True):
         )
 
     with quantity_col:
-        quantity = st.number_input('Quantity', min_value=30, max_value=10000, value=100, step=100,
+        quantity = st.number_input('Quantity', min_value=1, max_value=10000, value=100, step=100,
                                 help='Please enter values from 30 to 10,000')
+        
+show_mould_price = st.toggle("Show Mould Price?",value=True, help="Mould price is calculated using quantity = 1")
+
 
 
 # Input JSON
@@ -308,8 +315,36 @@ if st.button('Predict', type='primary', help='Predict data'):
                 st.success(
                     f'**MODEL PREDICTION:**\n\n'
                     f'**Unit Price of the Medal:** {formatted_cost_per_piece} €/pc\n\n'
-                    f'**Total Cost:** {formatted_total_cost} €'
+                    f'**Total Medal Cost:** {formatted_total_cost} €'
                 )
+
+                # Optional mould price prediction
+                if show_mould_price:
+                    mould_input = user_inputs.copy()
+                    mould_input['quantity'] = 1
+
+                    mould_response = requests.post(
+                        # 'http://127.0.0.1:8000/model_prediction',
+                        'https://ahk-medals-price-prediction.onrender.com/model_prediction',
+                        data=json.dumps(mould_input),
+                        headers={'Content-Type': 'application/json'}
+                    )
+                    mould_data = mould_response.json()
+
+                    if 'cost_per_piece' in mould_data and 'total_cost' in mould_data:
+                        # mould_cost = '{:,.2f}'.format(mould_data['total_cost'])
+                        mould_cost_float = mould_data['total_cost']
+                        mould_cost = '{:,.2f}'.format(mould_cost_float)
+
+                        combined_total = total_cost + mould_cost_float
+                        formatted_combined_total = '{:,.2f}'.format(combined_total)
+
+
+                        st.info(f'**Mould Price:** {mould_cost} €\n\n'
+                                f'**Total Cost with Mould:** {formatted_total_cost} € (medals) + {mould_cost} € (mould) = {formatted_combined_total} €')
+                    else:
+                        st.warning("Could not retrieve mould price.")
+                
             else:
                 st.error('API response is missing the "result" field.')
 
