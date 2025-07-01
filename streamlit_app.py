@@ -254,13 +254,11 @@ with st.expander("Packaging & Quantity", expanded=True):
         packaging = st.selectbox("Packaging",(
             
             'Cellophane with AGEC Logo', 'BTC-313', 'BTL-102', 
-            'Cellophane with AGEC Logo', 'BTC-313', 'BTL-102', 
             'BTL-103', 'BTT-201', 'Cardboard Box',  'Velvet Pouch'
 )
         )
 
     with quantity_col:
-        quantity = st.number_input('Quantity', min_value=30, max_value=10000, value=100, step=100,
         quantity = st.number_input('Quantity', min_value=30, max_value=10000, value=100, step=100,
                                 help='Please enter values from 30 to 10,000')
         
@@ -319,7 +317,6 @@ if st.button('Predict', type='primary', help='Predict data'):
                 st.success(
                     f'**MODEL PREDICTION:**\n\n'
                     f'**Unit Price of the Medal:** {formatted_cost_per_piece} €/pc\n\n'
-                    f'**Total Medal Cost:** {formatted_total_cost} €'
                     f'**Total Medal Cost:** {formatted_total_cost} €'
                 )
 
