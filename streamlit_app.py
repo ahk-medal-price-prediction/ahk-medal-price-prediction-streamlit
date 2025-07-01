@@ -303,8 +303,8 @@ if st.button('Predict', type='primary', help='Predict data'):
         time.sleep(1)
         try:
             response = requests.post(
-                # 'https://ahk-medals-price-prediction.onrender.com/medal_prediction', data=inputs, headers={'Content-Type': 'application/json'}) 
-                'http://127.0.0.1:8000/medal_prediction', data=inputs, headers={'Content-Type': 'application/json'}) 
+                'https://ahk-medals-price-prediction.onrender.com/medal_prediction', data=inputs, headers={'Content-Type': 'application/json'}) 
+                # 'http://127.0.0.1:8000/medal_prediction', data=inputs, headers={'Content-Type': 'application/json'}) 
             response_data = response.json()
 
             if 'cost_per_piece' in response_data and 'total_cost' in response_data:
@@ -329,8 +329,8 @@ if st.button('Predict', type='primary', help='Predict data'):
                         # 'http://127.0.0.1:8000/medal_prediction',
                         # 'https://ahk-medals-price-prediction.onrender.com/medal_prediction',
                         
-                        'http://127.0.0.1:8000/mould_prediction',
-                        # 'https://ahk-medals-price-prediction.onrender.com/mould_prediction',
+                        # 'http://127.0.0.1:8000/mould_prediction',
+                        'https://ahk-medals-price-prediction.onrender.com/mould_prediction',
                         data=json.dumps(mould_input),
                         headers={'Content-Type': 'application/json'}
                     )
