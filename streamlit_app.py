@@ -317,7 +317,7 @@ if st.button('Predict', type='primary', help='Predict data'):
                 st.success(
                     f'**MODEL PREDICTION:**\n\n'
                     f'**Unit Price of the Medal:** {formatted_cost_per_piece} €/pc\n\n'
-                    f'**Total Medal Cost:** {formatted_total_cost} €'
+                    f'**Total Medal Cost (Without Mould):** {formatted_total_cost} €'
                 )
 
                 # Optional mould price prediction
@@ -346,7 +346,7 @@ if st.button('Predict', type='primary', help='Predict data'):
 
 
                         st.info(f'**Mould Price:** {mould_cost} €\n\n'
-                                f'**Total Cost with Mould:** {formatted_total_cost} € (medals) + {mould_cost} € (mould) = {formatted_combined_total} €')
+                                f'**Total Medal Cost (With Mould):** {formatted_total_cost} € (medals) + {mould_cost} € (mould) = {formatted_combined_total} €')
                     else:
                         st.warning("Could not retrieve mould price.")
                 
