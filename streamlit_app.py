@@ -2,6 +2,8 @@
 # thus version has only cellopane with agec and default quantity value is 100
 # and it is the next iteration of "with material"
 
+# removerd select in fields because without select prediction should be present.
+
 import streamlit as st
 import requests
 import json
@@ -33,25 +35,25 @@ medal_material_col,medal_diameter_col, medal_thickness_col = st.columns(3)
 
 with medal_material_col:
     medal_material = st.selectbox(
-        "Medal Material",('Zamac', 'Iron', 'Aluminium', 'Brass'))
+        "Medal Material*",('Zamac', 'Iron', 'Aluminium', 'Brass'))
 
 with medal_diameter_col:
     medal_diameter = st.slider(
-        "Medal Diameter (mm)", min_value=50, max_value=100, value=50, step=5)
+        "Medal Diameter (mm)*", min_value=50, max_value=100, value=50, step=5)
 
 with medal_thickness_col:
     medal_thickness = st.slider(
-        "Medal Thickness (mm)", min_value=2, max_value=10, value=2)
+        "Medal Thickness (mm)*", min_value=2, max_value=10, value=2)
 
 
 # Front and Back type
 front_type_col, back_type_col = st.columns(2)
 
 with front_type_col:
-    front_type = st.radio("Front Type", ('2D', '3D'))
+    front_type = st.radio("Front Type*", ('2D', '3D'))
 
 with back_type_col:
-    back_type = st.radio("Back Type", ('2D', '3D'))
+    back_type = st.radio("Back Type*", ('2D', '3D'))
 
 
 # Personalisation
@@ -64,14 +66,14 @@ with front_personalisation_col:
         # 'Select','Smooth', 'Engraving','Laser Engraving','Black Laser','Enamel', 
         # 'UV Printing','Offset Printing'))
 
-        "Front Personalization",(            
+        "Front Personalization*",(            
         'Select','Smooth', 'Engraving','Laser Engraving','Black Laser','Enamel', 
         'UV Printing'))
     
-    if front_personalisation == "Select":
-        front_personalisation = "Unenamel"  
-    else:
-        front_personalisation = front_personalisation
+    # if front_personalisation == "Select":
+    #     front_personalisation = "Unenamel"  
+    # else:
+    #     front_personalisation = front_personalisation
 
 with back_personalisation_col:
     back_personalisation = st.selectbox(
@@ -81,14 +83,14 @@ with back_personalisation_col:
         #     'Black Laser', 'Enamel', 'UV Printing', '3M Adhesive',
         #     'Epoxy', 'Grained','Molded Base', 'Non-Slip Felt', 'Offset Printing', 'Wooden plaque'))
 
-        "Back Personalization",(
+        "Back Personalization*",(
         'Select','Smooth', 'Engraving','Laser Engraving','Black Laser','Enamel', 
         'UV Printing'))
     
-    if back_personalisation == "Select":
-        back_personalisation = "Unenamel"  
-    else:
-        back_personalisation = back_personalisation
+    # if back_personalisation == "Select":
+    #     back_personalisation = "Unenamel"  
+    # else:
+    #     back_personalisation = back_personalisation
 
 
 # Number of Colors
@@ -123,13 +125,13 @@ finish_col, second_finish_col, double_finish_col = st.columns(3)
 with finish_col:
    
 
-    finish = st.selectbox("Medal Plating", (
+    finish = st.selectbox("Medal Plating*", (
         'Select', 'Shiny Nickel', 'Satin Nickel', 'Shiny Gold', 'Antique Tin', 'Antique Bronze',
         'Antique Gold', 'Antique Silver'
     ))
 
-    if finish == "Select":
-        finish = "'Shiny Nickel'" 
+    # if finish == "Select":
+    #     finish = "'Shiny Nickel'" 
 
 # Define allowed finishes for Double Finish
 # allowed_double_finish = ['Antique Gold', 'Satin Gold', 'Satin Metal', 'Shiny Gold']
@@ -259,7 +261,7 @@ with st.expander("Packaging & Quantity", expanded=True):
         )
 
     with quantity_col:
-        quantity = st.number_input('Quantity', min_value=30, max_value=10000, value=100, step=100,
+        quantity = st.number_input('Quantity*', min_value=30, max_value=10000, value=100, step=100,
                                 help='Please enter values from 30 to 10,000')
         
 
@@ -298,7 +300,29 @@ user_inputs = {
 
 inputs = json.dumps(user_inputs)
 
-if st.button('Predict', type='primary', help='Predict data'):
+
+# --- Button should be disabled if any required field is missing or invalid ---
+disable_button = (
+    not medal_material or
+    not medal_diameter or
+    not medal_thickness or
+    not front_type or
+    not back_type or
+    front_personalisation == "Select" or
+    back_personalisation == "Select" or
+    finish == "Select" or  # default placeholder
+    quantity < 30
+)
+
+
+
+if disable_button:
+    predict_btn = st.button(
+        "Predict",
+        disabled=True,
+        help="Please fill all (*) required fields: Material, Diameter, Thickness, Front/Back Personalization, Plating, and Quantity."
+    )
+elif st.button('Predict', type='primary', help='Predict data'):
     with st.spinner('Getting Model Predictions...'):
         time.sleep(1)
         try:
